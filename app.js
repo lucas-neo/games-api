@@ -14,6 +14,14 @@ app.get('/jogos', (req, res) => {
 app.post('/jogos', (req, res) => {
   const { nome, tipo, nota, review } = req.body
 
+  if (!nome || !tipo || nota === undefined || !review) {
+    return res.status(400).json({ erro: 'Campos obrigatórios: nome, tipo, nota, review' })
+  }
+
+  if (typeof nota !== 'number') {
+    return res.status(400).json({ erro: 'O campo nota deve ser um número' })
+  }
+
   const novoJogo = {
     id: nextId++,
     nome,
@@ -31,20 +39,6 @@ app.get('/', (req, res) =>{
     console.log(req.url)
 })
 
-app.get('/users', (req, res) =>{
-    const id = 10
-    res.json({
-        mensagem: "Buscando",
-        id: 10
-    })
-    console.log(req.url)
-})
-
-const users = {}
-
-app.post('/user', (req, res) => {
-
-})
 
 app.listen(port, () => {
     console.log(`App running and listen on port ${port}`)
