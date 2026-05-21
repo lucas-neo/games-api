@@ -7,6 +7,11 @@ app.use(express.json())
 let jogos = []
 let nextId = 1
 
+
+const cors = require('cors');
+app.use(cors({ origin: '*' }));
+
+
 app.post('/login', (req, res) => {
     const { email, password } = req.body
 
